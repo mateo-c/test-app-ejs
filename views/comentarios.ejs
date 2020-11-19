@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Listado de Comentarios</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Comentario</th>
+            </tr>
+        </thead>
+        <tbody id="tabla">
+
+        </tbody>
+    </table>
+
+
+    <script>
+        var datos;
+
+        const consumir = function (){
+            fetch('http://localhost:3000/comments')
+            .then(data => data.json())
+            .then(data=>{
+                console.log(data)
+                datos= data;
+                pintar(datos);
+                
+            })
+        };
+
+        consumir();
+
+        
+        function pintar(list) {
+            const tabla = document.getElementById('tabla');
+            for(let i=0; i<datos.length;i++){
+                tabla.innerHTML+=`
+                <tr>
+                    <td>${datos[i].name}</td>
+                    <td>${datos[i].body}</td>
+                </tr>`
+            }
+        }
+    </script>
+  </body>
+</html>
